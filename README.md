@@ -1,50 +1,67 @@
-# Git merged
+# Gitting around
 
 ## Story
 
-Your friend started a project about listing animal breeds a while ago, but he's having trouble with git. You have decided to give him a hand.
+This project is about familiarizing yourself with git. It involves moving around in a repository with multiple branches (you do not need to create these) to solve different tasks. Solving these tasks may give confidence in your knowledge of git repository structure and of using the more advanced features for profit.
+
+To be able to solve the exercises you first need to learn how to list branches and how to switch to them as the exercises for the tasks can be found on separate branches.
 
 ## What are you going to learn?
 
-You will learn:
-
-- Git branching
-- resolving merge conflicts
-- creating pull requests
-- viewing changes
-- viewing the history of a repository
+- Use git history.
+- Understand git branch structure.
+- Use basic shell commands.
 
 ## Tasks
 
-1. Create a new branch called `cats`. Add a text file to it called `cat-breeds` with the following content: ``` Persian Siamese Ragdoll Himalayan Snowshoe ``` Merge it into the `master` branch.
-    - There's a branch called `cats`, and it contains the requested lines
-    - The `cats` branch has been merged into the `master` branch
+1. Set up passwordless git access on your computer and GitHub account by using `SSH`. This means that you use SSH (Secure Shell Protocol) to authenticate to GitHub instead of giving your username and password.
+    - Executing `git config --get remote.origin.url` in shell on the repo
+ shows a response that starts with: `git@...`
+    - Executing `git fetch` in shell on the repo does not ask for username and password.
 
-2. Some prankster has put car brands into the `dog-breeds` file. Create a new branch called `dogs` and replace the five brands with five dog breeds. Add a new car brand to the `dog-breeds` file on the `master` branch. Merge your `dogs` branch into `master` and resolve the merge conflict.
-    - There's a branch called `dogs` which contains the `dog-breeds` file containing five dog breeds
-    - A new car brand was added to the `dog-breeds` file on the `master` branch before
-merging the `dogs` branch into `master`
-    - The `dogs` branch has been merged into the `master` branch
-    - After resolving the merge conflict the `dog-breeds` file on the `master` branch contains the
-same dog breeds as the one on the `dogs` branch
+2. Initialize your repository by running the initialization script, `bash ./helper/init`. This will create branches needed for the following tasks.
+    - Executing the `git branch` command in shell returns the following output.
+```
+collect-files
+find-secret
+* development
+remote-change
+resolve-conflict
+size-history
+```
 
-3. There are too few parrot breeds in the `parrot-breeds` file. Create a new branch called `parrots` and add three more parrot breeds to it. Push your branch to the remote `parrots` branch and create a pull request for merging it into the remote `master` branch. Afterwards merge the pull request.
-    - There's a branch called `parrots` which contains the `parrot-breeds` file containing five
-parrot breeds
-    - The `parrots` branch has been pushed to the remote `parrots` branch
-    - The pull request for merging the remote `parrots` branch into the remote `master` branch has
-been merged.
+3. Switch to the `remote-change` branch and pull the changes from the remote.
+    - After executing `git checkout remote-change`, executing `git log` shows a new merge commit starting with: "Merge branch 'remote-change' ..." on the top of the output.
+    - After executing `git checkout remote-change` executing `git status` shows the following output.
+```
+On branch remote-change
+Your branch is ahead of 'origin/remote-change' by 2 commits.
+  (use "git push" to publish your local commits)
 
-4. Create a new branch called `breed-changes`. Replace two of the dog breeds in the `dog-breeds` file with two others. Do the same with the `parrot-breeds` file, except for parrots. Don't add or commit yet! View the changes using the `git diff` command. Afterwards add the `dog-breeds` file to the staging area, and check the changes in the staging area.
-    - There's a branch called `breed-changes` which has changes to the `dog-breeds` and `parrot-breeds`
-files
-    - Student has viewed the changes in the repository without adding the files to the staging area
-    - Student has viewed the changes in the repository after adding the `dog-breeds` file to the staging
-area
+nothing to commit, working tree clean
+```
 
-5. You have forgotten what changes you made to the `cats` branch. Check out its history! Afterwards check its history including the line changes which happened in each commit.
-    - Student has checked out the basic history of the `cats` branch
-    - Student has checked out the history of the `cats` branch along with the line changes in files
+4. Switch to the `resolve-conflict` branch, pull the changes from the remote and resolve conflicts.
+    - After executing `git checkout resolve-conflict`, the contents of `work.txt` should look like:
+```
+I work
+I rest after I work
+```
+    - After executing `git checkout resolve-conflict` the git log shows a new merge commit starting with the following line.
+"Merge branch 'resolve-conflict' ..."
+
+5. Find the secret about the meaning of 42 by investigating the git history of the `find-secret` branch. Experiment with some `git` commands to see what has changed in the previous commits.
+    - Knowledge of what 42 means in programming.
+
+6. On the `size-history` branch there are multiple commits changing the `names.txt` file. Find all versions of `names.txt` and the size (in bytes) for each version. Collect all sizes of `names.txt` separated by commas in a new `result.txt` file starting with the oldest, then commit your changes. You should visit all previous commits of this repository and observe the size of a changing file.
+    - Executing `git log --name-only` after executing `git checkout size-history` shows a new commit adding `result.txt`.
+    - The commit message is meaningful and describes the change accurately.
+    - Executing `cat result.txt` after executing `git checkout size-history` in the shell shows a 5 elements list starting with 35, ending with 89
+
+7. On the `collect-files` branch there were several files created, some still exist. Find the names of all files that ever existed on the branch, collect all the names separated by commas in a new `result.txt` file, then commit your changes. You should visit all previous commits of this repository and observe which files exist.
+    - After executing `git checkout collect-files`, the last commit message is meaningful and describes the change accurately.
+    - Executing `git log --name-only` after executing `git checkout collect-files` shows a new commit adding `result.txt`.
+    - Executing `cat result.txt` after executing `git checkout collect-files` in the shell shows 14 (or 16 if `.` and `..` are included) lines.
 
 ## General requirements
 
@@ -52,15 +69,14 @@ None
 
 ## Hints
 
-- Always make sure that you are on the correct branch when working on an exercise
+- Always make sure that you are on the correct branch when working on an exercise.
+- Use `git log --oneline` for a succinct view of the history of the current branch.
 
 ## Background materials
 
-- <i class="far fa-exclamation"></i> [Step-by-step guide](project/curriculum/materials/pages/guides/git-merged--general.md)
 - <i class="far fa-exclamation"></i> [Moving around branches](https://www.atlassian.com/git/tutorials/using-branches/git-checkout)
 - <i class="far fa-exclamation"></i> [Branches in a nutshell](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell)
-- <i class="far fa-exclamation"></i> [Merge conflicts](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts)
-- <i class="far fa-exclamation"></i> [Creating pull requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
-- <i class="far fa-exclamation"></i> [Inspecting a repository](https://www.atlassian.com/git/tutorials/inspecting-a-repository)
-- <i class="far fa-exclamation"></i> [Comparing changes](https://www.atlassian.com/git/tutorials/saving-changes/git-diff)
-- <i class="far fa-book-open"></i> [Why use branches? + branch basics](https://www.atlassian.com/git/tutorials/using-branches)
+- <i class="far fa-exclamation"></i> [Git without password](project/curriculum/materials/pages/git/git-passwordless.md)
+- <i class="far fa-exclamation"></i> [Bash commands and arguments](https://mywiki.wooledge.org/BashGuide/CommandsAndArguments)
+- <i class="far fa-book-open"></i> [Bash pattern matching](https://mywiki.wooledge.org/BashGuide/Patterns)
+- <i class="far fa-book-open"></i> [Mastering git](project/curriculum/materials/pages/git/mastering-git.md)
